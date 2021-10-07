@@ -1,16 +1,12 @@
-# This is a sample Python script.
+from pdf2image import convert_from_path
+import markRegion
 
-# Press Maj+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import pytesseract
+imageVaccin = convert_from_path("Assets/vaccin.pdf")
 
+print("En cours")
+for i in range(len(imageVaccin)):
+    # Save pages as images in the pdf
+    imageVaccin[i].save('page' + str(i) + '.jpg', 'JPEG')
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+markRegion.mark_region("page0.jpg")
