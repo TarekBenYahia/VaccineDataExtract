@@ -1,5 +1,5 @@
 # VaccineDataExtract
-Install : </br>
+ </br>
 ** Download window version poppler tools from :http://blog.alivate.com.au/poppler-windows/ 
 unzip it and add the location of bin (like C:\somepath\poppler-0.67.0_x86\poppler-0.67.0\bin) to your environment PATH.
 restart your CMD and python virtualenv if you are openning </br> 
