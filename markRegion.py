@@ -2,15 +2,18 @@ import cv2
 from PIL import Image
 import pytesseract
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = r'D:\Program Files\Tesseract-OCR\tesseract.exe'
 
-imagE_path="page0.jpg"
+imagE_path = "page0.jpg"
+
+
 def mark_region(imagE_path):
     im = cv2.imread("page0.jpg")
 
     gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray, (9, 9), 0)
-    thresh = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 30)
+    thresh = cv2.adaptiveThreshold(
+        blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 30)
 
     # Dilate to combine adjacent text contours
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (9, 9))
@@ -27,11 +30,13 @@ def mark_region(imagE_path):
 
         if y >= 1 and x <= 1000:
             if area > 10000:
-                image = cv2.rectangle(im, (x, y), (2200, y + h), color=(255, 0, 255), thickness=3)
+                image = cv2.rectangle(
+                    im, (x, y), (2200, y + h), color=(255, 0, 255), thickness=3)
                 line_items_coordinates.append([(x, y), (2200, y + h)])
 
         if y >= 2400 and x <= 2000:
-            image = cv2.rectangle(im, (x, y), (2200, y + h), color=(255, 0, 255), thickness=3)
+            image = cv2.rectangle(im, (x, y), (2200, y + h),
+                                  color=(255, 0, 255), thickness=3)
             line_items_coordinates.append([(x, y), (2200, y + h)])
     im = cv2.pyrDown(image)
     cv2.imshow('image grande', im)

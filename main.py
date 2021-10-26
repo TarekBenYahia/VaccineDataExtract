@@ -2,7 +2,7 @@ from pdf2image import convert_from_path
 import markRegion
 
 import pytesseract
-imageVaccin = convert_from_path("Assets/vaccin.pdf")
+imageVaccin = convert_from_path("Assets/Vaccine certificate.pdf")
 
 print("En cours")
 for i in range(len(imageVaccin)):
