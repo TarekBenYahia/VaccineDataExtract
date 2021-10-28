@@ -4,7 +4,7 @@ import numpy as np
 from pyzbar.pyzbar import decode
 
 
-pytesseract.pytesseract.tesseract_cmd = 'D:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = './usr/local/Cellar/tesseract/4.1.1/bin/tesseract'
 
 
 image = 'page0.jpg'
