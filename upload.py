@@ -1,5 +1,6 @@
 import tornado.web
 import tornado.ioloop
+import testing  
 
 class uploadImgHandler(tornado.web.RequestHandler):
     def post(self):
@@ -8,6 +9,7 @@ class uploadImgHandler(tornado.web.RequestHandler):
             fh = open(f"upload/{f.filename}", "wb")
             fh.write(f.body)
             fh.close()
+        testing.testing(f.filename)
         self.write(f"http://localhost:8080/img/{f.filename}")
     def get(self):
         self.render("index.html")
@@ -15,6 +17,7 @@ class uploadImgHandler(tornado.web.RequestHandler):
 if (__name__ == "__main__"):
     app = tornado.web.Application([
         ("/", uploadImgHandler),
+        
         ("/img/(.*)", tornado.web.StaticFileHandler, {'path': 'upload'})
     ])
 
