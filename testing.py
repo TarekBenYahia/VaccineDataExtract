@@ -4,6 +4,7 @@ import numpy as np
 from pyzbar.pyzbar import decode
 
 
+
 pytesseract.pytesseract.tesseract_cmd = r'/usr/local/bin/tesseract'
 
 def testing (file):
