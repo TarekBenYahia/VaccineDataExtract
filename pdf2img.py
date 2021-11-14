@@ -3,12 +3,12 @@ import os
 
 
 def convertPdf(filename):
-    if(filename.split(".")[1]!="pdf"):
+    if(filename.split(".")[1] != "pdf"):
         return filename
     imageNotFound = True
     # print("Ahawa file name :", filename)
     while(imageNotFound == True):
-        print("Searching for image "+filename)
+        # print("Searching for image "+filename)
         # print(os.path.exists("upload/"+filename))
         if(os.path.exists("upload/"+filename)):
             imageNotFound = False

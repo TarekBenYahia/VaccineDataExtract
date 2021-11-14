@@ -1,7 +1,7 @@
 import tornado.web
 import tornado.ioloop
 from random import randint
-import testing
+import extractData
 import os
 import json
 from pprint import pprint
@@ -34,7 +34,7 @@ class uploadImgHandler(tornado.web.RequestHandler):
             fh.close()
 
         # testing.testing(f.filename)
-        res = testing.testing(fileName+"."+extension)
+        res = extractData.getDataFromFile(fileName+"."+extension)
         pprint(res['dict'])
         r = json.dumps(res)
         self.write(r)
@@ -50,6 +50,6 @@ if (__name__ == "__main__"):
         ("/img/(.*)", tornado.web.StaticFileHandler, {'path': 'upload'})
     ])
 
-    app.listen(6969)
-    print("Listening on port 6969")
+    app.listen(5000)
+    print("Listening on port 5000")
     tornado.ioloop.IOLoop.instance().start()

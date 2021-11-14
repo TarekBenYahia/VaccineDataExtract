@@ -7,7 +7,7 @@ from pprint import pprint
 from itertools import islice
 
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = r'D:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 
 
 def nth_index(iterable, value, n):
@@ -15,15 +15,16 @@ def nth_index(iterable, value, n):
     return next(islice(matches, n-1, n), None)
 
 
-def testing(file):
+def getDataFromFile(file):
     imgName = convertPdf(file)
     image = 'upload/images/'+imgName+".jpg"
-    print("image path is : ", image)
+    # print("image path is : ", image)
     img = cv2.imread(image)
     img2Decode = img
     # img = cv2.resize(img, (0, 0), fx=0.4, fy=0.4)
 
     heightImg, widthImg, _ = img.shape
+    # Extracting text position from image
     boxes = pytesseract.image_to_data(img)
     words = []
     for x, b in enumerate(boxes.splitlines()):
@@ -32,16 +33,20 @@ def testing(file):
         if x != 0:
             b = b.split()
             # print(b)
+            # Text only exists if length == 12
             if(len(b) == 12):
                 words.append(b[11])
-                x, y, width, height = int(b[6]), int(
-                    b[7]), int(b[8]), int(b[9])
-                cv2.rectangle(img, (x, y), (width+x, height+y), (0, 0, 255), 3)
-                cv2.putText(img, b[11], (x, y),
-                            cv2.FONT_HERSHEY_COMPLEX, 1, (50, 50, 255), 2)
+                # x, y, width, height = int(b[6]), int(
+                #     b[7]), int(b[8]), int(b[9])
+                # # Using the returned coordinates to draw rectangles around the text
+                # cv2.rectangle(img, (x, y), (width+x, height+y), (0, 0, 255), 3)
+                # cv2.putText(img, b[11], (x, y),
+                #             cv2.FONT_HERSHEY_COMPLEX, 1, (50, 50, 255), 2)
 
+    # Extracting Data from QR code in image
     code = decode(img2Decode)
 
+    # Converting extracted data to readable text
     qrContent = str(code[0].data.decode('UTF-8'))
 
     values = qrContent.split(',')
@@ -51,6 +56,7 @@ def testing(file):
 
     dict = {}
 
+    # Creating dictionary from QR Code data
     for value in values:
         value = value.replace('"', '')
         # print(value)
@@ -73,8 +79,9 @@ def testing(file):
         'dateDose2': dateDose2,
     }
 
-    pprint(wordsDict)
-    print(words)
+    # pprint(wordsDict)
+    # cv2.imwrite("Result.jpeg", img)
+    # print(words)
     return({"dict": dict, "words": wordsDict})
 
     # dict = eval(code[0].data.decode('UTF-8'))

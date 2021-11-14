@@ -1,6 +1,7 @@
 Assets/*
-page0.jpg
-Output.txt
-imageCadre.jpg
 .idea
+.vscode
+upload/*
+backup/*.jpg
+Result.jpeg
 __pycache__
